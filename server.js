@@ -10,7 +10,8 @@ app.use(bodyParser.json()); // support json encoded bodies
 //mongoose.promise = global.Promise;
 const DbUser = process.env.DB_USER;
 const DbPass =  process.env.DB_PASS;
-mongoose.connect('mongodb://'+DbUser+':'+DbPass+'@ds261540.mlab.com:61540/atsandbox');
+const DbString = process.env.DB_STRING;
+mongoose.connect('mongodb://'+DbUser+':'+DbPass+DbString);
 var db = mongoose.connection;
 db.on('error',console.error.bind(console,'connection error'));
 db.once('open',()=>{
@@ -38,8 +39,8 @@ app.use((err, req, res, next)=>{
 });
 
 
-app.listen(3000, ()=>{
-    console.log('Lights at 3000');
+app.listen(process.env.PORT || 3000, ()=>{
+    console.log('Lights at', process.env.PORT);
 });
 
 
