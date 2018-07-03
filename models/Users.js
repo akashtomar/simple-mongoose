@@ -11,7 +11,7 @@ const UserSchema =  new Schema({
 });
 
 UserSchema.statics.searchUsername = function(username,cb){
-    return this.model('Users').find({'username': username}, cb);
+    return this.model('Users').findOne({'username': username}, cb);
 };
 
 
