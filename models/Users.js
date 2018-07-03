@@ -10,6 +10,11 @@ const UserSchema =  new Schema({
     salt : String
 });
 
+UserSchema.statics.searchUsername = function(username,cb){
+    return this.model('Users').find({'username': username}, cb);
+};
+
+
 UserSchema.methods.encryptPass = function(password){
     this.salt = crypto.randomBytes(16).toString('hex');
     this.hash = crypto.pbkdf2Sync(password, this.salt, 100000, 64, 'sha512').toString('hex');
@@ -18,5 +23,5 @@ UserSchema.methods.encryptPass = function(password){
 UserSchema.methods.checkPass = function(password){
     let hash = crypto.pbkdf2Sync(password, this.salt, 100000, 64, 'sha512').toString('hex');
     return hash === this.hash;
-}
+};
 module.exports = mongoose.model('Users', UserSchema);
