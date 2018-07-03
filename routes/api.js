@@ -22,7 +22,7 @@ router.post('/car',(req,res)=>{
 
 router.get('/car/:model',(req,res)=>{
     console.log('/car get');
-    console.log(req.params);
+    //console.log(req.params);
     return Cars.find(req.params)
     .then((data)=>{res.send(data)})
     .catch((err)=>{res.status(500).send(err)});
